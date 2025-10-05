@@ -60,22 +60,27 @@ router.get("/",middleware,async (req,res)=>{
 //update skills
 router.put("/:id",middleware,async (req,res)=>{
     try{
-        const id=req.params;
-        const name=req.body;//name of the skill
+        const {id}=req.params;
+        console.log(id);
+        const {name}=req.body;//name of the skill
+        console.log(name);
         const userId=(req.user as any).userId;
+        console.log(userId);
         //check whether skill belong to user or not
+        console.log("hi");
         const skill =await prismaClient.skill.findUnique({
             where:{
                 id:Number(id)
             }
         })
+        console.log(skill);
         //if skill does not exist
         if(!skill || skill.userId!==userId){
             res.status(404).json({
                 message:"Skill not found"
             })
         }
-        const updateedSkill=await prismaClient.skill.update({
+        const updatedSkill=await prismaClient.skill.update({
             where:{
                 id:Number(id)
             },
@@ -84,20 +89,23 @@ router.put("/:id",middleware,async (req,res)=>{
             }
         });
         res.json({
-            updateedSkill
+            updatedSkill
         })
     }catch(e){
+        console.log(e);
         res.status(500).json({
             message:"Error updating skill"
         })
     }
 })
 
-router.post("/:id",middleware,async (req,res)=>{
+router.delete("/:id",middleware,async (req,res)=>{
     try{
         //need id and userid
         const {id}=req.params;
-        const userId=req.body;//from middleware
+        console.log(id)
+        const userId=(req.user as any).userId;//from middleware
+        console.log(userId);
         //skill name to bne deleted
         const skill=await prismaClient.skill.findUnique({
             where:{
@@ -125,3 +133,5 @@ router.post("/:id",middleware,async (req,res)=>{
         })
     }
 })
+
+export default router;
