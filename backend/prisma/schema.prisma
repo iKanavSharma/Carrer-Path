@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id          Int         @id @default(autoincrement())
+  name        String
+  email       String      @unique
+  password    String
+  createdAt   DateTime    @default(now())
+  skills      Skill[]
+  interests   Interest[]
+  savedPaths  SavedPath[]
+}
+
+model Skill{
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields:[userId],references: [id])
+  userId     Int
+}
+
+model Interest{
+  id          Int       @id @default(autoincrement())
+  name        String
+  user        User      @relation(fields:[userId],references: [id])
+  userId      Int
+}
+
+model CarrerPath{
+  id               Int       @id @default(autoincrement())
+  name             String
+  requiredSkills   String[]      
+  rodmap           String[]
+  savedBy          SavedPath[]      
+}
+
+model SavedPath{
+  id               Int            @id @default(autoincrement())
+  user             User           @relation(fields: [userId],references: [id])
+  userId           Int
+  carrerPath       CarrerPath     @relation(fields: [carrerPathId],references: [id])
+  carrerPathId     Int
+  saveAt           DateTime       @default(now())
+}
