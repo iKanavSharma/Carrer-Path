@@ -10,12 +10,16 @@ const prismaClient=new PrismaClient();
 router.post("/signup",async (req,res)=>{
     try{
         const {name,email,password}=req.body;
+        console.log(name);
+        console.log(email);
+        console.log(password);
         //check whether the email already exist or not
         const user=await prismaClient.user.findUnique({
             where:{
                 email
             }
         });
+        console.log("here")
         //email already exist
         if(user){
             res.status(400).json({
@@ -38,6 +42,7 @@ router.post("/signup",async (req,res)=>{
                 email:true
             }
         })
+        console.log(newUser)
         //return 
         res.status(201).json({
             message:"User registered successfully",

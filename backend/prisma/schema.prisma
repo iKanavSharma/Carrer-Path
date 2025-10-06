@@ -16,6 +16,7 @@ model User{
   skills      Skill[]
   interests   Interest[]
   savedPaths  SavedPath[]
+  CarrerPath CarrerPath[]
 }
 
 model Skill{
@@ -33,11 +34,13 @@ model Interest{
 }
 
 model CarrerPath{
-  id               Int       @id @default(autoincrement())
-  name             String
+  id               Int           @id @default(autoincrement())
+  name             String   
   requiredSkills   String[]      
-  rodmap           String[]
+  roadmap           String[]
   savedBy          SavedPath[]      
+  user              User         @relation(fields:[userId],references: [id])
+  userId             Int
 }
 
 model SavedPath{
