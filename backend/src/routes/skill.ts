@@ -16,7 +16,7 @@ declare global{
 
 //add skill(create)
 //post
-router.post("/",middleware,async (req,res)=>{
+router.post("/skills",middleware,async (req,res)=>{
     try{
         const {name}=req.body;//name of the skill
         const userId=(req.user as any).userId;//from token
@@ -39,7 +39,7 @@ router.post("/",middleware,async (req,res)=>{
 });
 
 //get user skill
-router.get("/",middleware,async (req,res)=>{
+router.get("/skills",middleware,async (req,res)=>{
     try{
         const userId=(req.user as any).userId;
         const skills=await prismaClient.skill.findFirst({
@@ -58,7 +58,7 @@ router.get("/",middleware,async (req,res)=>{
 });
 
 //update skills
-router.put("/:id",middleware,async (req,res)=>{
+router.put("/skills/:id",middleware,async (req,res)=>{
     try{
         const {id}=req.params;
         console.log(id);
@@ -99,7 +99,7 @@ router.put("/:id",middleware,async (req,res)=>{
     }
 })
 
-router.delete("/:id",middleware,async (req,res)=>{
+router.delete("/skills/:id",middleware,async (req,res)=>{
     try{
         //need id and userid
         const {id}=req.params;

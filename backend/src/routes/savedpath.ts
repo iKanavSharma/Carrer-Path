@@ -7,7 +7,7 @@ const router=express.Router();
 const prismaClient=new PrismaClient();
 
 
-router.post("/",middleware,async (req,res)=>{
+router.post("/saved-path",middleware,async (req,res)=>{
     try{
         const userId=(req.user as any).userId;
         const carrerPathId=req.body;
@@ -50,7 +50,7 @@ router.post("/",middleware,async (req,res)=>{
 })
 
 //get all saved path
-router.get("/",middleware,async (req,res) => {
+router.get("/saved-path",middleware,async (req,res) => {
     try{
         const userId=(req.user as any).userId;
         const savedPaths=await prismaClient.savedPath.findMany({
@@ -74,7 +74,7 @@ router.get("/",middleware,async (req,res) => {
 })
 
 //delete
-router.delete("/:id",middleware,async (req,res)=>{
+router.delete("/saved-path/:id",middleware,async (req,res)=>{
     try{
         const {id}=req.params;
         const userId=(req.user as any).userId;

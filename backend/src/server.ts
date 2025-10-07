@@ -13,7 +13,7 @@ app.use(cors());
 
 //calling auth routes
 app.use("/api/auth",authRouter);
-app.use("/api/skill",skillRouter);
+app.use("/api/skills",skillRouter);
 app.use("/api/interest",interestRouter);
 app.use("/api/carrerpath",carrerRouter);
 app.use("/api/savedpath",savedRouter);

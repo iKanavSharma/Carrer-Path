@@ -9,7 +9,7 @@ const prismaClient=new PrismaClient();
 const router=express.Router();
 
 //post interset for user
-router.post("/",middleware,async (req,res)=>{
+router.post("/intersets",middleware,async (req,res)=>{
     try{
         const userId=(req.user as any).userId;//from middleware
         const {name}=req.body;
@@ -38,7 +38,7 @@ router.post("/",middleware,async (req,res)=>{
 })
 
 //get interest
-router.get("/",middleware,async (req,res)=>{
+router.get("/intersets",middleware,async (req,res)=>{
     try{
         const userId=(req.user as any).userId;
         const interests=await prismaClient.interest.findMany({
@@ -58,7 +58,7 @@ router.get("/",middleware,async (req,res)=>{
 })
 
 //update interset
-router.put("/:id",middleware,async (req,res)=>{
+router.put("/intersets/:id",middleware,async (req,res)=>{
     try{
         const {id}=req.params;
         const userId=(req.user as any).userId;
@@ -96,7 +96,7 @@ router.put("/:id",middleware,async (req,res)=>{
 })
 
 //delete
-router.delete("/:id",middleware,async (req,res)=>{
+router.delete("/intersets/:id",middleware,async (req,res)=>{
     try{
         const {id}=req.params;
         const userId=(req.user as any).userId;
