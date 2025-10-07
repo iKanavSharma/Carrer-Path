@@ -31,7 +31,9 @@ router.post("/skills",middleware,async (req,res)=>{
             skill
         })
     }catch(e){
+        console.log(e);
         res.status(500).json({
+            
             message:"Error creating skill"
         })
     }

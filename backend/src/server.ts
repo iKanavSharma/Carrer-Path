@@ -13,10 +13,10 @@ app.use(cors());
 
 //calling auth routes
 app.use("/api/auth",authRouter);
-app.use("/api/skills",skillRouter);
-app.use("/api/interest",interestRouter);
-app.use("/api/carrerpath",carrerRouter);
-app.use("/api/savedpath",savedRouter);
+app.use("/api",skillRouter);
+app.use("/api",interestRouter);
+app.use("/api",carrerRouter);
+app.use("/api",savedRouter);
 
 console.log("Listening on 3001");
 app.listen(3001);

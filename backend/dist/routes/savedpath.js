@@ -3,32 +3,23 @@ import { middleware } from "../middleware/authMiddleware.js";
 import { PrismaClient } from "@prisma/client";
 const router = express.Router();
 const prismaClient = new PrismaClient();
-router.post("/", middleware, async (req, res) => {
+router.post("/saved-path", middleware, async (req, res) => {
     try {
-        console.log("hi");
-
         const userId = req.user.userId;
-        const {carrerPathId} = req.body;
-        console.log(carrerPathId);
+        const carrerPathId = req.body;
         if (!carrerPathId) {
             res.status(400).json({
                 message: "Carrer id is required"
             });
             return;
         }
-        console.log("hi");
         //check whether path is already saved or not
         const existing = await prismaClient.savedPath.findFirst({
-           
             where: {
-                carrerPathId: Number(carrerPathId),
-                userId
-                
+                userId,
+                carrerPathId: Number(carrerPathId)
             }
-            
         });
-        console.log("ji");
-        console.log(existing);
         //already exist
         if (existing) {
             res.status(400).json({
@@ -55,7 +46,7 @@ router.post("/", middleware, async (req, res) => {
     }
 });
 //get all saved path
-router.get("/", middleware, async (req, res) => {
+router.get("/saved-path", middleware, async (req, res) => {
     try {
         const userId = req.user.userId;
         const savedPaths = await prismaClient.savedPath.findMany({
@@ -79,7 +70,7 @@ router.get("/", middleware, async (req, res) => {
     }
 });
 //delete
-router.delete("/:id", middleware, async (req, res) => {
+router.delete("/saved-path/:id", middleware, async (req, res) => {
     try {
         const { id } = req.params;
         const userId = req.user.userId;

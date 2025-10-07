@@ -5,7 +5,7 @@ const prismaClient = new PrismaClient();
 const router = express.Router();
 //add skill(create)
 //post
-router.post("/", middleware, async (req, res) => {
+router.post("/skills", middleware, async (req, res) => {
     try {
         const { name } = req.body; //name of the skill
         const userId = req.user.userId; //from token
@@ -20,13 +20,14 @@ router.post("/", middleware, async (req, res) => {
         });
     }
     catch (e) {
+        console.log(e);
         res.status(500).json({
             message: "Error creating skill"
         });
     }
 });
 //get user skill
-router.get("/", middleware, async (req, res) => {
+router.get("/skills", middleware, async (req, res) => {
     try {
         const userId = req.user.userId;
         const skills = await prismaClient.skill.findFirst({
@@ -45,7 +46,7 @@ router.get("/", middleware, async (req, res) => {
     }
 });
 //update skills
-router.put("/:id", middleware, async (req, res) => {
+router.put("/skills/:id", middleware, async (req, res) => {
     try {
         const { id } = req.params;
         console.log(id);
@@ -86,7 +87,7 @@ router.put("/:id", middleware, async (req, res) => {
         });
     }
 });
-router.delete("/:id", middleware, async (req, res) => {
+router.delete("/skills/:id", middleware, async (req, res) => {
     try {
         //need id and userid
         const { id } = req.params;

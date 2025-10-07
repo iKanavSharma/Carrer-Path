@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const router = express.Router();
 const prismaClient = new PrismaClient();
 //new carrer path
-router.post("/", middleware, async (req, res) => {
+router.post("/carrer-path", middleware, async (req, res) => {
     try {
         const { name, requiredSkills, roadmap } = req.body;
         //check whether a field is missing or not
@@ -34,7 +34,7 @@ router.post("/", middleware, async (req, res) => {
     }
 });
 //get carrerpath for user 
-router.get("/", middleware, async (req, res) => {
+router.get("/carrer-path", middleware, async (req, res) => {
     try {
         const userId = req.user.userId;
         const paths = await prismaClient.carrerPath.findMany({
@@ -59,7 +59,7 @@ router.get("/", middleware, async (req, res) => {
     }
 });
 //update 
-router.put("/:id", middleware, async (req, res) => {
+router.put("/carrer-path/:id", middleware, async (req, res) => {
     try {
         const { id } = req.params;
         const { name, requiredSkills, roadmap } = req.body;
@@ -97,7 +97,7 @@ router.put("/:id", middleware, async (req, res) => {
     }
 });
 //delete
-router.delete("/:id", middleware, async (req, res) => {
+router.delete("/carrer-path/:id", middleware, async (req, res) => {
     try {
         const { id } = req.params;
         const userId = req.user.userId;
